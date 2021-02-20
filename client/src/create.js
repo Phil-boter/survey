@@ -5,7 +5,46 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Create() {
-    const [input, setInput] = useState("");
+    const [error, setError] = useState(false);
+    const [title, setTitle] = useState("");
+    const [questions, setQuestions] = useState([]);
+    const [content, setContent] = useState({});
+
+    // console.log("content", content);
+
+    const handleTitle = (e) => {
+        setTitle(e.target.value);
+        console.log("Title", e.target.value);
+    };
+
+    const handleInput = (e) => {
+        console.log("content value", e.target.value);
+        setContent({ ...content, [e.target.id]: e.target.value });
+    };
+
+    const addQuestion = () => {
+        console.log("click addQuestion");
+        setQuestions([...questions, ""]);
+    };
+
+    const removeQuestion = () => {
+        console.log("click removeQuestion");
+        setQuestions([...questions].slice(0, -1));
+    };
+
+    const handleSubmit = (e) => {
+        console.log("submit");
+
+        axios
+            .post("/survey-question", {
+                title: title,
+                content: content,
+            })
+            .catch((error) => {
+                console.log("error in survey-question", error);
+                setError(true);
+            });
+    };
 
     return (
         <>
@@ -19,12 +58,36 @@ export default function Create() {
                     nisl ut aliquip ex ea commodo consequat.
                 </p>
             </section>
-            <div>
+            {error && (
+                <P>
+                    Sorry! something went wrong. Be shure to fill out every from
+                </P>
+            )}
+            <form>
                 <input
-                    onChange={(e) => setInput(e.target.value)}
+                    type="text"
+                    name="title"
+                    onChange={(e) => handleTitle(e)}
                     placeholder="Title"
                 ></input>
-            </div>
+                {error}
+                {questions.map((question, index) => {
+                    return (
+                        <div key={index}>
+                            <input
+                                placeholder="Question"
+                                type="text"
+                                id={index}
+                                onChange={(e) => handleInput(e)}
+                            ></input>
+
+                            <div onClick={removeQuestion}>removeQustion</div>
+                        </div>
+                    );
+                })}
+                <p onClick={addQuestion}>addQuestion</p>
+                <button onClick={(e) => handleSubmit(e)}>Publish survey</button>
+            </form>
         </>
     );
 }
