@@ -1,7 +1,7 @@
 export default function Results() {
     return (
         <>
-            <h1>Your new Survey</h1>
+            <h1>Your new Survey Results</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,

@@ -11,9 +11,9 @@ module.exports.newSurvey = (title) => {
     return db.query(q, params);
 };
 
-module.exports.addQuestion = (id, question) => {
+module.exports.addQuestion = (surveyId, orderId, question, link) => {
     const q =
-        "INSERT INTO questions (id, question) VALUES($1, $2) RETURNING id";
-    const params = [id, question];
+        "INSERT INTO questions (survey_id, order_id, question, link) VALUES($1, $2, $3, $4)";
+    const params = [surveyId, orderId, question, link];
     return db.query(q, params);
 };

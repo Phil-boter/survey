@@ -3,12 +3,15 @@ import ReactDOM from "react-dom";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
 export default function Create() {
+    // const history = useHistory();
     const [error, setError] = useState(false);
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
     const [content, setContent] = useState({});
+    const [secretLink, setSecretLink] = useState("");
 
     // console.log("content", content);
 
@@ -34,15 +37,18 @@ export default function Create() {
 
     const handleSubmit = (e) => {
         console.log("submit");
-
+        e.preventDefault();
         axios
             .post("/survey-question", {
                 title: title,
                 content: content,
             })
-            .catch((error) => {
-                console.log("error in survey-question", error);
-                setError(true);
+            .then(({ data }) => {
+                console.log("DATA", data);
+                const { secretLink, surveyId } = data;
+                setSecretLink(secretLink);
+                location.replace(`/results/${surveyId}`);
+                // history.push(`/results/${surveyId}`);
             });
     };
 
