@@ -4,6 +4,7 @@ const compression = require("compression");
 const path = require("path");
 const db = require("./database/db");
 const uidSafe = require("uid-safe");
+const { link } = require("fs");
 
 app.use(compression());
 
@@ -46,6 +47,21 @@ app.post("/survey-question", (req, res) => {
         })
         .catch((error) => {
             console.log("error in newSurvey", error);
+            res.json({ success: false });
+        });
+});
+
+app.get("/getQuestions/:surveyId", (req, res) => {
+    console.log("get getQuestions", req.params);
+    db.getQuestions(req.params.surveyId)
+        .then(({ rows }) => {
+            res.json({
+                // success: true,
+                rows,
+            });
+        })
+        .catch((error) => {
+            console.log("error in getQuestions", error);
             res.json({ success: false });
         });
 });

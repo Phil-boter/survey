@@ -6,14 +6,12 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 export default function Create() {
-    // const history = useHistory();
+    const history = useHistory();
     const [error, setError] = useState(false);
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
     const [content, setContent] = useState({});
     const [secretLink, setSecretLink] = useState("");
-
-    // console.log("content", content);
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -46,9 +44,9 @@ export default function Create() {
             .then(({ data }) => {
                 console.log("DATA", data);
                 const { secretLink, surveyId } = data;
-                setSecretLink(secretLink);
-                location.replace(`/results/${surveyId}`);
-                // history.push(`/results/${surveyId}`);
+                // setSecretLink(secretLink);
+                // location.replace(`/results/${surveyId}`);
+                history.push(`/results/${surveyId}`);
             });
     };
 

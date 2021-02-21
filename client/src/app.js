@@ -12,7 +12,12 @@ export default function App() {
         <BrowserRouter>
             <Route exact path="/" render={() => <Survey />} />
             <Route path="/create" render={() => <Create />} />
-            <Route path="/results" render={() => <Results />} />
+            <Route
+                path="/results/:id"
+                render={(props) => {
+                    return <Results surveyId={props.match.params.id} />;
+                }}
+            />
             <Route path="/participate" render={() => <Participate />} />
             <Route path="/thankyou" render={() => <ThankYou />} />
         </BrowserRouter>
