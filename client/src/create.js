@@ -44,9 +44,9 @@ export default function Create() {
             .then(({ data }) => {
                 console.log("DATA", data);
                 const { secretLink, surveyId } = data;
-                // setSecretLink(secretLink);
+                setSecretLink(secretLink);
                 // location.replace(`/results/${surveyId}`);
-                history.push(`/results/${surveyId}`);
+                history.push(`/results/${surveyId}/${secretLink}`);
             });
     };
 

@@ -2,8 +2,7 @@ import axios from "./axios";
 import { useEffect, useState } from "react";
 import copy from "copy-to-clipboard";
 
-export default function Results({ surveyId }) {
-    console.log("surveyId", surveyId);
+export default function Results({ surveyId, secretLink }) {
     const [results, setResults] = useState([]);
     const [link, setLink] = useState("");
 
@@ -14,11 +13,12 @@ export default function Results({ surveyId }) {
             setResults(data.rows);
             setLink(data.rows[0].link);
         });
+        // axios get for answers
     }, []);
 
     const copyToClipboard = (e) => {
         console.log("Copying to Clipboard", e.target);
-        copy(`http://localhost:3000/answers/${surveyId}/${link}`);
+        copy(`http://localhost:3000/participate/${surveyId}/${link}`);
     };
 
     return (
@@ -33,6 +33,11 @@ export default function Results({ surveyId }) {
                     tincidunt ut laoreet dolore magna aliquam erat volutpat.
                 </p>
             </section>
+            <div>
+                <button onClick={(e) => copyToClipboard(e)}>
+                    Copy Link to ClipBoard
+                </button>
+            </div>
             <div>
                 {results.map((result, index) => {
                     return <div key={index}>{result.question}</div>;

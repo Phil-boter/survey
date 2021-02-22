@@ -42,6 +42,7 @@ app.post("/survey-question", (req, res) => {
                 res.json({
                     success: true,
                     surveyId: surveyId,
+                    secretLink: uid,
                 });
             });
         })

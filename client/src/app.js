@@ -13,12 +13,25 @@ export default function App() {
             <Route exact path="/" render={() => <Survey />} />
             <Route path="/create" render={() => <Create />} />
             <Route
-                path="/results/:id"
+                path="/results/:id/:secretLink"
                 render={(props) => {
-                    return <Results surveyId={props.match.params.id} />;
+                    return (
+                        <Results
+                            surveyId={props.match.params.id}
+                            secretLink={props.match.params.secretLink}
+                        />
+                    );
                 }}
             />
-            <Route path="/participate" render={() => <Participate />} />
+            <Route
+                path="/participate/:id/:secretLink"
+                render={(props) => (
+                    <Participate
+                        surveyId={props.match.params.id}
+                        secretLink={props.match.params.secretLink}
+                    />
+                )}
+            />
             <Route path="/thankyou" render={() => <ThankYou />} />
         </BrowserRouter>
     );
