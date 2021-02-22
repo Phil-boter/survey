@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 export default function Participate({ surveyId, secretLink }) {
     const [questions, setPartQest] = useState([]);
-    const [answers, setAnswers] = useState([]);
+    const [answers, setAnswers] = useState({});
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         console.log("Participate mounted");
@@ -14,9 +15,9 @@ export default function Participate({ surveyId, secretLink }) {
     }, []);
 
     const handleInput = (e) => {
-        e.preventDefault();
         console.log("input");
         console.log("answer value", e.target.value);
+        console.log("answer id", e.target.id);
         setAnswers({ ...answers, [e.target.id]: e.target.value });
     };
 
@@ -24,12 +25,13 @@ export default function Participate({ surveyId, secretLink }) {
         e.preventDefault();
         console.log("submit Answer");
         axios
-            .post(`/answer/${surveyId}`)
-            .then(() => {
-                console.log("post answer");
+            .post(`/answer`, {
+                surveyId: surveyId,
+                answers: answers,
             })
-            .catch((error) => {
-                console.log("error in post answer", error);
+            .then(() => {
+                console.log("success submit answer");
+                location.replace(`/thankyou`);
             });
     };
 
@@ -45,22 +47,33 @@ export default function Participate({ surveyId, secretLink }) {
                     tincidunt ut laoreet dolore magna aliquam erat volutpat.
                 </p>
             </section>
-
+            {error && (
+                <P>
+                    Sorry! something went wrong. Be shure to fill out every from
+                </P>
+            )}
             <h1>Results</h1>
             <div>
                 {questions.map((question, index) => {
                     return (
                         <div key={index}>
-                            <h2>{question.question}</h2>
-                            <form>
-                                <input onChange={(e) => handleInput(e)}></input>
-                                <button onClick={(e) => submitAnswer(e)}>
-                                    submit Answer
-                                </button>
-                            </form>
+                            <ul>
+                                <li key={index}>
+                                    <h2>{`question ${index + 1}`}</h2>
+                                    <h4>{question.question}</h4>
+                                    <input
+                                        name="answer"
+                                        onChange={(e) => handleInput(e)}
+                                        placeholder="enter answer"
+                                        type="text"
+                                        id={question.id}
+                                    ></input>
+                                </li>
+                            </ul>
                         </div>
                     );
                 })}
+                <button onClick={(e) => submitAnswer(e)}>submit Answer</button>
             </div>
         </>
     );

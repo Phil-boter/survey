@@ -67,6 +67,42 @@ app.get("/getQuestions/:surveyId", (req, res) => {
         });
 });
 
+app.post("/answer", (req, res) => {
+    console.log(" post answer");
+    console.log("req body in answer", req.body);
+
+    const { surveyId, answers } = req.body;
+    let singleAnswer = Object.entries(answers);
+    console.log("singleAnswer", singleAnswer);
+    for (let i = 0; i <= singleAnswer[0].length; i++) {
+        console.log("I in answers", singleAnswer[i][1]);
+        db.setAnswers(surveyId, singleAnswer[i][0], singleAnswer[i][1])
+            .then(() => {
+                console.log("answer saved to database");
+                res.json();
+            })
+            .catch((error) => {
+                console.log("error in setAnswer", error);
+                res.json({ success: false });
+            });
+    }
+});
+
+app.get("/getAnswers/:surveyId", (req, res) => {
+    console.log("get getQuestions", req.params);
+    db.getAnswers(req.params.surveyId)
+        .then(({ rows }) => {
+            res.json({
+                success: true,
+                rows,
+            });
+        })
+        .catch((error) => {
+            console.log("error in getAnswers", error);
+            res.json({ success: false });
+        });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

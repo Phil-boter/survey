@@ -5,6 +5,7 @@ import copy from "copy-to-clipboard";
 export default function Results({ surveyId, secretLink }) {
     const [results, setResults] = useState([]);
     const [link, setLink] = useState("");
+    const [reAnswers, setReAnswers] = useState([]);
 
     useEffect(() => {
         console.log("Results mounted");
@@ -13,7 +14,13 @@ export default function Results({ surveyId, secretLink }) {
             setResults(data.rows);
             setLink(data.rows[0].link);
         });
-        // axios get for answers
+    }, []);
+
+    useEffect(() => {
+        axios.get(`/getAnswers/${surveyId}`).then(({ data }) => {
+            console.log("data in getAnswers", data.rows);
+            setReAnswers(data.rows);
+        });
     }, []);
 
     const copyToClipboard = (e) => {
@@ -23,6 +30,7 @@ export default function Results({ surveyId, secretLink }) {
 
     return (
         <>
+            <h1>You should really bookmark this page</h1>
             <h1>Your new Survey Results</h1>
             <section>
                 <p>
@@ -40,7 +48,39 @@ export default function Results({ surveyId, secretLink }) {
             </div>
             <div>
                 {results.map((result, index) => {
-                    return <div key={index}>{result.question}</div>;
+                    return (
+                        <>
+                            <div key={index}>
+                                <h1>{result.question}</h1>
+                            </div>
+                            <>
+                                {reAnswers && reAnswers.length != 0 ? (
+                                    <h2>Your Answers:</h2>
+                                ) : (
+                                    <p>There are no answers so far</p>
+                                )}
+                            </>
+
+                            {reAnswers &&
+                                reAnswers.map((answer, questions_id) => {
+                                    let id = result.id;
+                                    console.log("resultId", id);
+                                    if (questions_id == id) {
+                                        return (
+                                            <div key={answer.id}>
+                                                <ul>
+                                                    <li>
+                                                        <p>{answer.answers}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        );
+                                    } else {
+                                        return;
+                                    }
+                                })}
+                        </>
+                    );
                 })}
             </div>
         </>

@@ -43,10 +43,14 @@ export default function Create() {
             })
             .then(({ data }) => {
                 console.log("DATA", data);
-                const { secretLink, surveyId } = data;
-                setSecretLink(secretLink);
-                // location.replace(`/results/${surveyId}`);
-                history.push(`/results/${surveyId}/${secretLink}`);
+                if (data.success) {
+                    const { secretLink, surveyId } = data;
+                    setSecretLink(secretLink);
+                    history.push(`/results/${surveyId}/${secretLink}`);
+                } else {
+                    console.log("error in post survey", error);
+                    setError(true);
+                }
             });
     };
 
@@ -74,7 +78,7 @@ export default function Create() {
                     onChange={(e) => handleTitle(e)}
                     placeholder="Title"
                 ></input>
-                {error}
+
                 {questions.map((question, index) => {
                     return (
                         <div key={index}>
