@@ -4,13 +4,27 @@ const compression = require("compression");
 const path = require("path");
 const db = require("./database/db");
 const uidSafe = require("uid-safe");
-const { link } = require("fs");
+const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 
 app.use(compression());
 
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+});
+
+app.use(cookieSessionMiddleware);
+
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -74,9 +88,10 @@ app.post("/answer", (req, res) => {
     const { surveyId, answers } = req.body;
     let singleAnswer = Object.entries(answers);
     console.log("singleAnswer", singleAnswer);
-    for (let i = 0; i <= singleAnswer[0].length; i++) {
-        console.log("I in answers", singleAnswer[i][1]);
-        db.setAnswers(surveyId, singleAnswer[i][0], singleAnswer[i][1])
+    for (let i = 0; i < singleAnswer.length; i++) {
+        let answer = singleAnswer[i];
+        console.log("answer", answer);
+        db.setAnswers(surveyId, answer[0], answer[1])
             .then(() => {
                 console.log("answer saved to database");
                 res.json();
