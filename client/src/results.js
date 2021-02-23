@@ -62,10 +62,12 @@ export default function Results({ surveyId, secretLink }) {
                             </>
 
                             {reAnswers &&
-                                reAnswers.map((answer, questions_id) => {
+                                reAnswers.map((answer) => {
                                     let id = result.id;
+                                    let qId = answer.questions_id;
                                     console.log("resultId", id);
-                                    if (questions_id == id) {
+                                    console.log("qUd", qId);
+                                    if (qId == id) {
                                         return (
                                             <div key={answer.id}>
                                                 <ul>
