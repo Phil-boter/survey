@@ -30,6 +30,12 @@ export default function Results({ surveyId, secretLink }) {
         copy(`http://localhost:3000/participate/${surveyId}/${link}`);
     };
 
+    let upper;
+    const upperCase = (str) => {
+        upper = str.toUpperCase();
+        return upper;
+    };
+
     return (
         <>
             {" "}
@@ -58,7 +64,10 @@ export default function Results({ surveyId, secretLink }) {
                     return (
                         <>
                             <div key={index}>
-                                <h3>{result.question}</h3>
+                                <h3>
+                                    {upperCase(result.question)}
+                                    {upper}
+                                </h3>
                             </div>
                             <>
                                 {reAnswers && reAnswers.length != 0 ? (
