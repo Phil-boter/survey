@@ -1,14 +1,11 @@
 import { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "./axios";
-
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router";
 
 import "./css/create.css";
 
 export default function Create() {
-    const history = useHistory();
     const [error, setError] = useState(false);
     const [title, setTitle] = useState("");
     const [questions, setQuestions] = useState([]);
@@ -31,8 +28,9 @@ export default function Create() {
         setQuestions([...questions, ""]);
     };
 
-    const removeQuestion = () => {
+    const removeQuestion = (e) => {
         console.log("click removeQuestion");
+        e.preventDefault();
         setQuestions([...questions].slice(0, -1));
     };
 
@@ -49,7 +47,7 @@ export default function Create() {
                 if (data.success) {
                     const { secretLink, surveyId } = data;
                     setSecretLink(secretLink);
-                    history.push(`/results/${surveyId}/${secretLink}`);
+                    location.replace(`/results/${surveyId}/${secretLink}`);
                 } else {
                     console.log("error in post survey", error);
                     setError(true);
