@@ -1,10 +1,13 @@
 import ReactDOM from "react-dom";
-import { Route, BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import "./css/app.css";
+import "./css/survey.css";
 
 export default function Survey() {
     return (
         <>
-            <h1>Survey App</h1>
+            <h1 className="survey-headline">Survey App</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -18,7 +21,9 @@ export default function Survey() {
                     praesent luptatum zzril delenit a
                 </p>
             </section>
-            <Link to="/create">Create new survey</Link>
+            <button className="button">
+                <Link to="/create">Create new survey</Link>
+            </button>
         </>
     );
 }

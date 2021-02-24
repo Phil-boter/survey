@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: white;
+    font-size: 18px;
+    font-family: "Ubuntu", sans-serif;
+}
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 90vw;
+
+    margin: 5rem auto;
+    background-color: lightgray;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.7);
+}
+section {
+    font-weight: 300;
+}
+.button {
+    width: 14rem;
+    height: 4rem;
+    background-color: orange;
+    color: black;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    margin: 1.3rem;
+}
+.submit {
+    float: right;
+}
+.button a {
+    color: black;
+    text-decoration: none;
+}

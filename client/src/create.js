@@ -1,9 +1,11 @@
 import { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "./axios";
-import { Link } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+
+import "./css/create.css";
 
 export default function Create() {
     const history = useHistory();
@@ -23,8 +25,9 @@ export default function Create() {
         setContent({ ...content, [e.target.id]: e.target.value });
     };
 
-    const addQuestion = () => {
+    const addQuestion = (e) => {
         console.log("click addQuestion");
+        e.preventDefault();
         setQuestions([...questions, ""]);
     };
 
@@ -56,7 +59,7 @@ export default function Create() {
 
     return (
         <>
-            <h1>Your new survey</h1>
+            <h1 className="survey-headline">Your new survey</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -71,8 +74,9 @@ export default function Create() {
                     Sorry! something went wrong. Be shure to fill out every from
                 </P>
             )}
-            <form>
+            <form className="form">
                 <input
+                    className="form-input"
                     type="text"
                     name="title"
                     onChange={(e) => handleTitle(e)}
@@ -81,20 +85,31 @@ export default function Create() {
 
                 {questions.map((question, index) => {
                     return (
-                        <div key={index}>
+                        <div key={index} className="question-container">
                             <input
+                                className="form-input"
                                 placeholder="Question"
                                 type="text"
                                 id={index}
                                 onChange={(e) => handleInput(e)}
                             ></input>
-
-                            <div onClick={removeQuestion}>removeQustion</div>
+                            <button className="button remove">
+                                <div onClick={removeQuestion}>X</div>
+                            </button>
                         </div>
                     );
                 })}
-                <p onClick={addQuestion}>addQuestion</p>
-                <button onClick={(e) => handleSubmit(e)}>Publish survey</button>
+
+                <div className="add" onClick={addQuestion}>
+                    + add question
+                </div>
+
+                <button
+                    className="button submit"
+                    onClick={(e) => handleSubmit(e)}
+                >
+                    Publish survey
+                </button>
             </form>
         </>
     );

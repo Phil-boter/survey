@@ -2,6 +2,8 @@ import axios from "./axios";
 import { useEffect, useState } from "react";
 import copy from "copy-to-clipboard";
 
+import "./css/results.css";
+
 export default function Results({ surveyId, secretLink }) {
     const [results, setResults] = useState([]);
     const [link, setLink] = useState("");
@@ -30,8 +32,11 @@ export default function Results({ surveyId, secretLink }) {
 
     return (
         <>
-            <h1>You should really bookmark this page</h1>
-            <h1>Your new Survey Results</h1>
+            {" "}
+            <div className="banner-bookmark">
+                <p>You should really bookmark this page!</p>
+            </div>
+            <h1 className="survey-headline">Your new Survey</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -42,20 +47,22 @@ export default function Results({ surveyId, secretLink }) {
                 </p>
             </section>
             <div>
-                <button onClick={(e) => copyToClipboard(e)}>
+                <button className="copy" onClick={(e) => copyToClipboard(e)}>
+                    <img src="/copy-white.png" />
                     Copy Link to ClipBoard
                 </button>
             </div>
-            <div>
+            <div className="result-container">
+                <h1 className="survey-headline results">Results</h1>
                 {results.map((result, index) => {
                     return (
                         <>
                             <div key={index}>
-                                <h1>{result.question}</h1>
+                                <h3>{result.question}</h3>
                             </div>
                             <>
                                 {reAnswers && reAnswers.length != 0 ? (
-                                    <h2>Your Answers:</h2>
+                                    <div></div>
                                 ) : (
                                     <p>There are no answers so far</p>
                                 )}
@@ -69,7 +76,10 @@ export default function Results({ surveyId, secretLink }) {
                                     console.log("qUd", qId);
                                     if (qId == id) {
                                         return (
-                                            <div key={answer.id}>
+                                            <div
+                                                key={answer.id}
+                                                className="result-list"
+                                            >
                                                 <ul>
                                                     <li>
                                                         <p>{answer.answers}</p>

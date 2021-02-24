@@ -1,0 +1,22 @@
+input {
+    width: 450px;
+    padding: 15px;
+    font-size: 2rem;
+    margin: 0.6rem 0.05rem 0.6rem 0.6rem;
+}
+
+.question-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.remove {
+    margin: 0.3rem !important;
+    width: 50px !important;
+    height: 50px !important;
+}
+.add {
+    text-decoration: underline;
+    font-size: 1.4rem;
+}

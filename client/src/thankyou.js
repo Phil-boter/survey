@@ -1,7 +1,7 @@
 export default function ThankYou() {
     return (
         <>
-            <h1>❤️ Thank you so much!</h1>
+            <h1 className="survey-headline">❤️ Thank you so much!</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,

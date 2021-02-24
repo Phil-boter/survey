@@ -1,0 +1,23 @@
+.banner-bookmark {
+    background-color: orange;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 15px;
+}
+.copy {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    width: 19rem;
+    height: 5rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+}
+.copy img {
+    height: 2rem;
+    margin: 0.2rem;
+}
+/* .result-container {
+    list-style-type: none;
+} */

@@ -1,6 +1,8 @@
 import axios from "./axios";
 import { useEffect, useState } from "react";
 
+import "./css/participate.css";
+
 export default function Participate({ surveyId, secretLink }) {
     const [questions, setPartQest] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -35,9 +37,15 @@ export default function Participate({ surveyId, secretLink }) {
             });
     };
 
+    let upper;
+    const upperCase = (str) => {
+        upper = str.toUpperCase();
+        return upper;
+    };
+
     return (
         <>
-            <h1>Your new Survey</h1>
+            <h1 className="survey-headline">Your new Survey</h1>
             <section>
                 <p>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -48,19 +56,21 @@ export default function Participate({ surveyId, secretLink }) {
                 </p>
             </section>
             {error && (
-                <P>
+                <p>
                     Sorry! something went wrong. Be shure to fill out every from
-                </P>
+                </p>
             )}
-            <h1>Results</h1>
-            <div>
+            <div className="result-container">
                 {questions.map((question, index) => {
                     return (
                         <div key={index}>
                             <ul>
                                 <li key={index}>
-                                    <h2>{`question ${index + 1}`}</h2>
-                                    <h4>{question.question}</h4>
+                                    {/* <h2>{`question ${index + 1}`}</h2> */}
+                                    <h3>
+                                        {upperCase(question.question)}
+                                        {upper}
+                                    </h3>
                                     <input
                                         name="answer"
                                         onChange={(e) => handleInput(e)}
@@ -73,7 +83,12 @@ export default function Participate({ surveyId, secretLink }) {
                         </div>
                     );
                 })}
-                <button onClick={(e) => submitAnswer(e)}>submit Answer</button>
+                <button
+                    className="button submit"
+                    onClick={(e) => submitAnswer(e)}
+                >
+                    Submit Answer
+                </button>
             </div>
         </>
     );
