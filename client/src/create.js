@@ -105,9 +105,14 @@ export default function Create() {
                     + add question
                 </div>
             </form>
-            <button className="button submit" onClick={(e) => handleSubmit(e)}>
-                Publish survey
-            </button>
+            <div className="submit-button-container">
+                <button
+                    className="button submit"
+                    onClick={(e) => handleSubmit(e)}
+                >
+                    Publish survey
+                </button>
+            </div>
         </>
     );
 }

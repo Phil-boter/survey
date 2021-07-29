@@ -47,12 +47,6 @@ export default function Participate({ surveyId, secretLink }) {
             });
     };
 
-    let upper;
-    const upperCase = (str) => {
-        upper = str.toUpperCase();
-        return upper;
-    };
-
     return (
         <>
             <h1 className="survey-headline">Your new Survey</h1>
@@ -73,10 +67,7 @@ export default function Participate({ surveyId, secretLink }) {
                             <ul>
                                 <li key={index}>
                                     {/* <h2>{`question ${index + 1}`}</h2> */}
-                                    <h3>
-                                        {upperCase(question.question)}
-                                        {upper}
-                                    </h3>
+                                    <h3>{question.question.toUpperCase()}</h3>
                                     <input
                                         name="answer"
                                         onChange={(e) => handleInput(e)}

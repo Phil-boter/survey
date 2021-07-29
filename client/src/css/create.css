@@ -19,9 +19,7 @@ input {
     width: 50px !important;
     height: 50px !important;
 }
-.remove:child {
-    opacity: 0;
-}
+
 .add {
     text-decoration: underline;
     font-size: 1.4rem;

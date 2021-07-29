@@ -14,6 +14,9 @@
     border-radius: 10px;
     font-size: 1.4rem;
 }
+.copy:hover {
+    background-color: rgb(80, 80, 80);
+}
 .copy img {
     height: 2rem;
     margin: 0.2rem;

@@ -28,12 +28,7 @@ export default function Results({ surveyId, secretLink }) {
     const copyToClipboard = (e) => {
         console.log("Copying to Clipboard", e.target);
         copy(`http://localhost:3000/participate/${surveyId}/${secretLink}`);
-    };
-
-    let upper;
-    const upperCase = (str) => {
-        upper = str.toUpperCase();
-        return upper;
+        alert("Link was copied to clipboard");
     };
 
     return (
@@ -86,9 +81,13 @@ export default function Results({ surveyId, secretLink }) {
                                                 className="result-list"
                                             >
                                                 <ul>
-                                                    <li>
-                                                        <p>{answer.answers}</p>
-                                                    </li>
+                                                    {answer.answers != "" ? (
+                                                        <li>
+                                                            {answer.answers}
+                                                        </li>
+                                                    ) : (
+                                                        <li> no answer yet</li>
+                                                    )}
                                                 </ul>
                                             </div>
                                         );
