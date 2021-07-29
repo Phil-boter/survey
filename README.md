@@ -1,3 +1,5 @@
+![survey2](https://user-images.githubusercontent.com/68227335/127495288-a8f9f195-c72b-49a5-a69b-1df59161269a.png)
+
 # survey-app
 
 Easy app to share questions online
@@ -9,3 +11,4 @@ With my Survey app, you can share your questions online with other people or fri
 ## Technologies
 
     React.js, CSS, Html, JavaScript, Node.js/Express, PostgreSQL
+![survey5](https://user-images.githubusercontent.com/68227335/127495307-bea1f6f4-a6cf-4fce-ade5-37efe47efc89.png)
