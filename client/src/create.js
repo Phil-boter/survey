@@ -1,14 +1,12 @@
-import { Component } from "react";
-import ReactDOM from "react-dom";
 import axios from "./axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./css/create.css";
 
 export default function Create() {
     const [error, setError] = useState(false);
     const [title, setTitle] = useState("");
-    const [questions, setQuestions] = useState([]);
+    const [questions, setQuestions] = useState([questions]);
     const [content, setContent] = useState({});
     const [secretLink, setSecretLink] = useState("");
 
@@ -18,24 +16,24 @@ export default function Create() {
     };
 
     const handleInput = (e) => {
-        console.log("content value", e.target.value);
+        // console.log("content value", e.target.value);
         setContent({ ...content, [e.target.id]: e.target.value });
     };
 
     const addQuestion = (e) => {
-        console.log("click addQuestion");
+        // console.log("click addQuestion");
         e.preventDefault();
         setQuestions([...questions, ""]);
     };
 
     const removeQuestion = (e) => {
-        console.log("click removeQuestion");
+        // console.log("click removeQuestion");
         e.preventDefault();
         setQuestions([...questions].slice(0, -1));
     };
 
     const handleSubmit = (e) => {
-        console.log("submit");
+        // console.log("submit");
         e.preventDefault();
         axios
             .post("/survey-question", {
@@ -43,7 +41,7 @@ export default function Create() {
                 content: content,
             })
             .then(({ data }) => {
-                console.log("DATA", data);
+                // console.log("DATA", data);
                 if (data.success) {
                     const { secretLink, surveyId } = data;
                     setSecretLink(secretLink);
@@ -54,6 +52,9 @@ export default function Create() {
                 }
             });
     };
+    useEffect(() => {
+        setContent({});
+    }, [setContent]);
 
     return (
         <>
@@ -68,9 +69,9 @@ export default function Create() {
                 </p>
             </section>
             {error && (
-                <P>
+                <p>
                     Sorry! something went wrong. Be shure to fill out every from
-                </P>
+                </p>
             )}
             <form className="form">
                 <input
@@ -91,9 +92,11 @@ export default function Create() {
                                 id={index}
                                 onChange={(e) => handleInput(e)}
                             ></input>
-                            <button className="button remove">
-                                <div onClick={removeQuestion}>X</div>
-                            </button>
+                            {index >= 1 ? (
+                                <button className="button remove">
+                                    <div onClick={removeQuestion}>X</div>
+                                </button>
+                            ) : null}
                         </div>
                     );
                 })}
@@ -101,14 +104,10 @@ export default function Create() {
                 <div className="add" onClick={addQuestion}>
                     + add question
                 </div>
-
-                <button
-                    className="button submit"
-                    onClick={(e) => handleSubmit(e)}
-                >
-                    Publish survey
-                </button>
             </form>
+            <button className="button submit" onClick={(e) => handleSubmit(e)}>
+                Publish survey
+            </button>
         </>
     );
 }

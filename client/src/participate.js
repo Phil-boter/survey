@@ -10,10 +10,16 @@ export default function Participate({ surveyId, secretLink }) {
 
     useEffect(() => {
         console.log("Participate mounted");
-        axios.get(`/getQuestions/${surveyId}`).then(({ data }) => {
-            console.log("data in results", data);
-            setPartQest(data.rows);
-        });
+        axios
+            .get(`/getQuestions/${surveyId}`)
+            .then(({ data }) => {
+                console.log("data in results", data);
+                setPartQest(data.rows);
+            })
+            .catch((error) => {
+                console.log("error in get survey", error);
+                setError(true);
+            });
     }, []);
 
     const handleInput = (e) => {
@@ -34,6 +40,10 @@ export default function Participate({ surveyId, secretLink }) {
             .then(() => {
                 console.log("success submit answer");
                 location.replace(`/thankyou`);
+            })
+            .catch((error) => {
+                console.log("errot in Post answer", error);
+                setError(true);
             });
     };
 
@@ -55,11 +65,7 @@ export default function Participate({ surveyId, secretLink }) {
                     tincidunt ut laoreet dolore magna aliquam erat volutpat.
                 </p>
             </section>
-            {error && (
-                <p>
-                    Sorry! something went wrong. Be shure to fill out every from
-                </p>
-            )}
+            {error && <p>Sorry! something went wrong...</p>}
             <div className="result-container">
                 {questions.map((question, index) => {
                     return (

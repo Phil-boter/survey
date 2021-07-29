@@ -27,7 +27,7 @@ export default function Results({ surveyId, secretLink }) {
 
     const copyToClipboard = (e) => {
         console.log("Copying to Clipboard", e.target);
-        copy(`http://localhost:3000/participate/${surveyId}/${link}`);
+        copy(`http://localhost:3000/participate/${surveyId}/${secretLink}`);
     };
 
     let upper;
@@ -38,7 +38,6 @@ export default function Results({ surveyId, secretLink }) {
 
     return (
         <>
-            {" "}
             <div className="banner-bookmark">
                 <p>You should really bookmark this page!</p>
             </div>
@@ -64,10 +63,7 @@ export default function Results({ surveyId, secretLink }) {
                     return (
                         <>
                             <div key={index}>
-                                <h3>
-                                    {upperCase(result.question)}
-                                    {upper}
-                                </h3>
+                                <h3>{result.question.toUpperCase()}</h3>
                             </div>
                             <>
                                 {reAnswers && reAnswers.length != 0 ? (

@@ -4,7 +4,10 @@ input {
     font-size: 2rem;
     margin: 0.6rem 0.05rem 0.6rem 0.6rem;
 }
-
+.form {
+    display: flex;
+    flex-direction: column;
+}
 .question-container {
     display: inline-flex;
     flex-direction: row;
@@ -15,6 +18,9 @@ input {
     margin: 0.3rem !important;
     width: 50px !important;
     height: 50px !important;
+}
+.remove:child {
+    opacity: 0;
 }
 .add {
     text-decoration: underline;
